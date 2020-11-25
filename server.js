@@ -23,6 +23,9 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '/pub/browkit.html'))
 })
 
+app.get('/browkit.html', (req, res) => {
+	res.sendFile(path.join(__dirname, '/pub/browkit.html'))
+})
 
 // will use an 'environmental variable', process.env.PORT, for deployment.
 const port = process.env.PORT || 5000
