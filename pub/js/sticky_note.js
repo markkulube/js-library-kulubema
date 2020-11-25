@@ -5,7 +5,6 @@ function newSticky (e) {
       document.getElementById('hide_notes').style.display = 'block'
       //document.getElementById('show_notes').style.display = 'block'
     }
-
 }
 
 function hideSticky (e) {
@@ -39,14 +38,10 @@ function showSticky (e) {
 
 function displayStickyButtons () {
     if (document.querySelector('#board') === null) {
+
         const buttonBlock = document.createElement('div')
         buttonBlock.id = 'board'
         buttonBlock.className = 'all-tools'
-        /* const buttonStr = '<div id="board" class="all-tools">'
-        + '<a onclick="newSticky()" class="button" id="add_new">New Note</a>'
-        + '<a onclick="hideSticky()" class="button" id="hide_notes">Hide Notes</a>'
-        + '<a onclick="showSticky()" class="button" id="show_notes">Show Notes</a>'
-        + '</div>' */
 
         const buttonStr = '<a onclick="newSticky()" class="button" id="add_new">New Note</a>'
         + '<a onclick="hideSticky()" class="button" id="hide_notes">Hide Notes</a>'
@@ -71,30 +66,21 @@ function displayStickyButtons () {
 
 function StickyNote() {
 	// the constructor function shouhld instantiate any variables that
-	//  each Circle Generator instance should have a unique version of.
-	//  In this case, each CG should have its own array of circles separate from
+	//  each StickyNote instance should have a unique version of.
+	//  In this case, each SN should have its own array of circles separate from
 	//  other CGs.
 	this.sticky_notes = []
 	// this..
 	// this.. (any values you need for each 'instance' of this library)
 }
 
-// For funcionality and values common to all CircleGenerators,
-//  we can add to the prototype property of the constructor.
+// For funcionality and values common to all StickNotes,
+// we can add to the prototype property of the constructor.
 StickyNote.prototype = {
 
     
 	makeStickyNote: function() {
 
-        /*
-             var noteTemp =  '<div class="note">'
-				+	'<a href="javascript:;" class="button remove">X</a>'
-				+ 	'<div class="note_cnt">'
-				+		'<textarea class="title" placeholder="Enter note title"></textarea>'
-				+ 		'<textarea class="cnt" placeholder="Enter note description here"></textarea>'
-				+	'</div> '
-				+'</div>';
-         */
         let noteNum
         const noteList = document.getElementsByClassName('note')
         if (noteList !== null) {
@@ -117,8 +103,8 @@ StickyNote.prototype = {
         item.style.height =  '350px'
         item.style.backgroundColor = 'rgb(23, 132, 196)'
         item.style.border = '10px solid rgba(107, 17, 119, 0.438)'
-        item.style.left = (250 + noteNum*10) + 'px'
-        item.style.top = (noteNum*10) + 'px'
+        item.style.left = (278 + noteNum*10 + 10) + 'px'
+        item.style.top = (noteNum*10 + 10) + 'px'
         item.style.position = 'absolute'
        /*  item.style.cursor = 'move' */
 
@@ -142,12 +128,20 @@ StickyNote.prototype = {
         note.appendChild(note_cnt)
 
         item.appendChild(note)
-        
-        let container = document.querySelector("#container3");
+
+        let container
+        if (document.getElementById('sticky_container') === null) {
+          container = document.createElement('div')
+          container.className = 'sticky_container'
+          container.id = 'sticky_container'
+          document.querySelector('body').appendChild(container)
+        } else {
+          container = document.getElementById('sticky_container')
+        }
+
         container.appendChild(item)
+
         let dragItem = item;
-        
-    
         let active = false;
         let currentX, currentY, initialX, initialY;
         let xOffset = 0;
@@ -206,10 +200,6 @@ StickyNote.prototype = {
           el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
         }
 
-        this.sticky_notes.push(note)
-        
+        this.sticky_notes.push(note)      
 	}
-
 }
-
-
