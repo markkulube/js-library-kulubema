@@ -1,7 +1,7 @@
 # browkit
 
 ## Link: 
-https://pure-lake-46085.herokuapp.com/browkit.html 
+https://pure-lake-46085.herokuapp.com/examples.html 
 
 ## Description
 A side bar is rendered on the landing page. There are two menu options i.e. ‘Calculator’ and ‘Sticky Notes’. 

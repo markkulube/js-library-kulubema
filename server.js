@@ -20,11 +20,11 @@ app.use("/css", express.static(path.join(__dirname, '/pub/css')))
 
 // route for root
 app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, '/pub/browkit.html'))
+	res.sendFile(path.join(__dirname, '/pub/examples.html'))
 })
 
-app.get('/browkit.html', (req, res) => {
-	res.sendFile(path.join(__dirname, '/pub/browkit.html'))
+app.get('/examples.html', (req, res) => {
+	res.sendFile(path.join(__dirname, '/pub/examples.html'))
 })
 
 // will use an 'environmental variable', process.env.PORT, for deployment.
