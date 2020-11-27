@@ -25,7 +25,7 @@
   }
   
   .palette-class .tool-box {
-      width: 112px;
+      width: 50%;
       height: 200px;
       border: 2px solid rgb(238, 238, 238);
       margin: auto;
@@ -33,13 +33,15 @@
       background-color: #eee;
   }
   .palette-class .tool-box .tool {
+    text-align: center;
     background-color: #eee;
     color: black;
     display: block;
-    padding: 12px;
+    /* padding: 12px; */
+    padding:10% 0%; 
     text-decoration: none;
     width: 100%;
-    float: left;
+    /* float: left; */
     border-bottom: 1px solid rgb(138, 76, 119);
   }
   

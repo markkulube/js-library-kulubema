@@ -40,11 +40,11 @@
     user-select: none;
     cursor: move;
   }
-  #item:active {
+  #item_calc:active {
     background-color: rgba(168, 218, 220, 1.00);
   }
-  #item:hover {
-    cursor: pointer;
+  #item_calc:hover {
+    cursor: move;
     border-width: 20px;
   }
   
@@ -56,6 +56,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     /* width: 450px; */
+    cursor: move;
   }
   
   .calculator {

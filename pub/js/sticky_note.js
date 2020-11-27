@@ -95,18 +95,45 @@ StickyNote.prototype = {
         border: 10px solid rgba(107, 17, 119, 0.438);
         touch-action: none;
         user-select: none;
+        
  */     
+        // Implementation inspired by
+        // https://codepen.io/edmondko/pen/udcHG
+        const item_style = {
+                    width: '375px',
+                    height: '375px',
+                    backgroundColor1: 'rgb(23, 132, 196)',
+                    backgroundColor2: '#faaaca',
+                    backgroundColor3: '#69f098',
+                    backgroundColor4: 'hsl(14, 88%, 45%)',
+                    border: '10px solid rgba(107, 17, 119, 0.438)',
+                    left: (278 + noteNum*10 + 10) + 'px',
+                    top: (noteNum*10 + 10) + 'px',
+                    position: 'absolute',
+                    cursor: 'move'
+                          }
+
         const item = document.createElement('div')
         item.className = 'noteItem all-tools'
         item.id = 'item' + noteNum
-        item.style.width = '350px'
-        item.style.height =  '350px'
+        item.style.width = '375px'
+        item.style.height =  '375px'
         item.style.backgroundColor = 'rgb(23, 132, 196)'
+        if (((noteNum-1)%4)===1) {
+          item.style.backgroundColor = '#faaaca'
+        } else if(((noteNum-1)%4)===2) {
+          item.style.backgroundColor = '#69f098'
+        } else if(((noteNum-1)%4)===3) {
+          item.style.backgroundColor = 'hsl(14, 88%, 45%)'
+        } else {
+          item.style.backgroundColor = 'rgb(23, 132, 196)'
+        }
+
         item.style.border = '10px solid rgba(107, 17, 119, 0.438)'
         item.style.left = (278 + noteNum*10 + 10) + 'px'
         item.style.top = (noteNum*10 + 10) + 'px'
         item.style.position = 'absolute'
-       /*  item.style.cursor = 'move' */
+        item.style.cursor = 'move'
 
         const note = document.createElement('div')
         note.className = "note"
@@ -117,12 +144,12 @@ StickyNote.prototype = {
         note_cnt.className = 'note_cnt'
         const title = document.createElement('textarea')
         title.className = 'title'
-        const titleText = document.createTextNode('Enter note title')
+        const titleText = document.createTextNode('Enter Note Title')
         title.appendChild(titleText)
         note_cnt.appendChild(title)
         const cnt = document.createElement('textarea')
         cnt.className = 'cnt'
-        const cntText = document.createTextNode('textarea')
+        const cntText = document.createTextNode('Enter Note Details')
         cnt.appendChild(cntText)
         note_cnt.appendChild(cnt)
         note.appendChild(note_cnt)
@@ -141,6 +168,8 @@ StickyNote.prototype = {
 
         container.appendChild(item)
 
+        // Implementation inspired by
+        // https://www.kirupa.com/html5/drag.htm
         let dragItem = item;
         let active = false;
         let currentX, currentY, initialX, initialY;
