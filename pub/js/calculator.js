@@ -90,6 +90,9 @@ const calculator = {
 }
 
 function makeCalculator () {
+
+    // Implementation inspired by
+    // https://jsfiddle.net/ayoisaiah/c2htznqg/5/
     const calcDiv = document.createElement('div')
     calcDiv.className = "all-tools"
     calcDiv.id = "item_calc"
@@ -174,6 +177,9 @@ function makeCalculator () {
     
       updateDisplay();
     });
+
+    // Implementation inspired by
+    // https://www.kirupa.com/html5/drag.htm
     let dragItem = document.querySelector("#item_calc");
     let container = document.querySelector("#calc_container");
 
