@@ -14,7 +14,25 @@ PaletteMaker.prototype = {
 	makePaletteBase: function() {
         const palette = document.createElement('div')
         palette.id = "palette"
-        palette.className = "palette-class"
+        palette.className = "palette-class sidebar"
+
+        {/* <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button> */}  
+        const openNavButton = document.createElement('button')
+        openNavButton.className = "openbtn"
+        openNavButton.id = "openbtn"
+        openNavButton.onclick = openNav
+        const textNode = document.createTextNode('☰ Open Browkit')
+        openNavButton.appendChild(textNode)
+        document.querySelector('body').appendChild(openNavButton)
+
+        {/* <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> */}
+        const closeNavLink = document.createElement('a')
+        closeNavLink.href = "javascript:void(0)"
+        closeNavLink.className = "closebtn"
+        closeNavLink.onclick = closeNav
+        closeNavLink.innerText = "×"
+
+        palette.appendChild(closeNavLink)
 
         const ulist = document.createElement('div')
         ulist.className = "tool-box"
@@ -51,5 +69,17 @@ PaletteMaker.prototype = {
             }
         };
 
-	}
+        function openNav() {
+            document.getElementById("palette").style.width = "250px";
+            document.querySelector("body").style.marginLeft = "250px";
+            document.getElementById("openbtn").innerText = '☰ Close Browkit'
+        }
+          
+        function closeNav() {
+            document.getElementById("palette").style.width = "0";
+            document.querySelector("body").style.marginLeft= "0";
+            document.getElementById("openbtn").innerText = '☰ Open Browkit'
+        }
+
+    }
 }
