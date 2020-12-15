@@ -96,6 +96,10 @@ function makeCalculator () {
     const calcDiv = document.createElement('div')
     calcDiv.className = "all-tools"
     calcDiv.id = "item_calc"
+    const mydiv = document.createElement("div")
+    mydiv.id = "mydiv_calc"
+    mydiv.className = "all-tools"
+    mydiv.style.cursor = 'move'
     const calcStr = '<div class="calculator" id="calculator">'
 
                     +        '<input type="text" class="calculator-screen" value="" disabled />'
@@ -131,7 +135,8 @@ function makeCalculator () {
                     +        '</div>'
                     +    '</div>'
 
-    calcDiv.innerHTML = calcStr
+    //calcDiv.innerHTML = calcStr
+    mydiv.innerHTML = calcStr
 
     let calcCont
     if (document.getElementById('calc_container') === null) {
@@ -142,7 +147,9 @@ function makeCalculator () {
       calcCont = document.getElementById('calc_container')
     }
 
-    calcCont.appendChild(calcDiv)
+    // calcCont.appendChild(calcDiv)
+    dragElement(mydiv)
+    calcCont.appendChild(mydiv)
     document.querySelector('body').appendChild(calcCont)
 
     updateDisplay();
@@ -177,69 +184,6 @@ function makeCalculator () {
     
       updateDisplay();
     });
-
-    // Implementation inspired by
-    // https://www.kirupa.com/html5/drag.htm
-    let dragItem = document.querySelector("#item_calc");
-    let container = document.querySelector("#calc_container");
-
-    let active = false;
-    let currentX, currentY, initialX, initialY;
-    let xOffset = 0;
-    let yOffset = 0;
-
-    container.addEventListener("touchstart", dragStart, false);
-    container.addEventListener("touchend", dragEnd, false);
-    container.addEventListener("touchmove", drag, false);
-
-    container.addEventListener("mousedown", dragStart, false);
-    container.addEventListener("mouseup", dragEnd, false);
-    container.addEventListener("mousemove", drag, false);
-
-    function dragStart(e) {
-      if (e.type === "touchstart") {
-        initialX = e.touches[0].clientX - xOffset;
-        initialY = e.touches[0].clientY - yOffset;
-      } else {
-        initialX = e.clientX - xOffset;
-        initialY = e.clientY - yOffset;
-      }
-
-      if (e.target === dragItem) {
-        active = true;
-      }
-    }
-
-    function dragEnd(e) {
-      initialX = currentX;
-      initialY = currentY;
-
-      active = false;
-    }
-
-    function drag(e) {
-      if (active) {
-      
-        e.preventDefault();
-      
-        if (e.type === "touchmove") {
-          currentX = e.touches[0].clientX - initialX;
-          currentY = e.touches[0].clientY - initialY;
-        } else {
-          currentX = e.clientX - initialX;
-          currentY = e.clientY - initialY;
-        }
-
-        xOffset = currentX;
-        yOffset = currentY;
-
-        setTranslate(currentX, currentY, dragItem);
-      }
-    }
-
-    function setTranslate(xPos, yPos, el) {
-      el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-    }
                 
 }
 
@@ -263,7 +207,8 @@ function makeCalculator () {
         makeCalculator()
     }
 
-    document.getElementById('item_calc').style.display = 'block'
+    // document.getElementById('item_calc').style.display = 'block'
+    document.getElementById('mydiv_calc').style.display = 'block'
     document.getElementById('board_calc').style.display = 'block'
     
 
