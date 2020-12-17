@@ -20,12 +20,17 @@ app.use("/css", express.static(path.join(__dirname, '/pub/css')))
 
 // route for root
 app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, '/pub/examples.html'))
+	res.sendFile(path.join(__dirname, '/pub/html/home.html'))
 })
 
 app.get('/examples.html', (req, res) => {
-	res.sendFile(path.join(__dirname, '/pub/examples.html'))
+	res.sendFile(path.join(__dirname, '/pub/html/examples.html'))
 })
+
+app.get('/home.html', (req, res) => {
+	res.sendFile(path.join(__dirname, '/pub/html/home.html'))
+})
+
 
 // will use an 'environmental variable', process.env.PORT, for deployment.
 const port = process.env.PORT || 5000

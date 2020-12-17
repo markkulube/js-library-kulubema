@@ -1,3 +1,19 @@
+
+/* JS Library */
+"use strict"; // always need a semicolon before an IIFE
+
+/* 
+Wrap the code that creates your library in an Immediately-Invoked function expression (IIFE).
+This allows you to do any setup necessary in this function scope and then only put on the
+the global scope the variables needed for developers to access.  Prevents pollution of the 
+global scope and conflicts with variables from other libraries, and gives some control over functionality access.
+*/
+
+// We use parameters to create *local* variables in the function, which are faster to lookup than globals, for performance.
+// We can also name them something else - like `global` for the window object.
+(function(global, document, $) { 
+    let paletteOpen = false
+
 // A javascript library that renders various tools in the
 // browser like a calculator, stick notes
 function PaletteMaker(paletteTools) {
@@ -59,7 +75,7 @@ PaletteMaker.prototype = {
         const container = document.querySelector('.browkit_container');
         container.addEventListener('mousedown', userPressed);
 
-        function userPressed(event) {
+        function userPressed() {
 
             const allTool = document.getElementsByClassName('all-tools')
             for (let index = 0; index < allTool.length; index++) {
@@ -69,10 +85,20 @@ PaletteMaker.prototype = {
             }
         };
 
+        // https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
+        // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapse_sidebar
         function openNav() {
-            document.getElementById("palette").style.width = "250px";
-            document.querySelector("body").style.marginLeft = "250px";
-            document.getElementById("openbtn").innerText = '☰ Close Browkit'
+            if (paletteOpen) {
+                closeNav()
+                userPressed()
+            } else {
+                document.getElementById("palette").style.width = "250px";
+                document.querySelector("body").style.marginLeft = "250px";
+                document.getElementById("openbtn").innerText = '☰ Close Browkit'
+             
+            }
+            paletteOpen = !paletteOpen
+            
         }
           
         function closeNav() {
@@ -83,3 +109,13 @@ PaletteMaker.prototype = {
 
     }
 }
+
+/* Can do all other library setup below without conflicting with the global namespace */
+	// ...
+	// ...
+
+	// After setup:
+	// Add the PaletteMaker to the window object if it doesn't already exist.
+	global.PaletteMaker = global.PaletteMaker || PaletteMaker
+
+})(window, window.document, $); // pass the global window object and jquery to the anonymous function. They will now be locally scoped inside of the function.
