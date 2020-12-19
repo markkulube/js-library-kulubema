@@ -62,6 +62,39 @@ function displayStickyButtons () {
       document.getElementById('hide_notes').style.display = 'none'
       document.getElementById('show_notes').style.display = 'none'
     }
+
+    document.getElementById("tab-code").style.display = 'block'
+    document.getElementById('js-tab-para').innerHTML = '<code><pre>' +
+                                                              'const calc = { \n' +
+                                                                '\t\ttool_name: "calculator", \n'+
+                                                                '\t\tclass_name: "tool", \n' +
+                                                                '\t\tinner_text: "Calculator", \n' +
+                                                                '\t\tdisplay_fcn: displayCalculator \n' +
+                                                            '} \n' +
+
+                                                          'const sticky_notes =  { \n' +
+                                                                '\t\ttool_name: "sticky_notes", \n' +
+                                                                '\t\tclass_name: "tool", \n' +
+                                                                '\t\tinner_text: "Sticky Notes", \n' +
+                                                                '\t\tdisplay_fcn: displayStickyButtons \n' +
+                                                            '} \n' +
+
+                                                          'const paletteTools = [] \n' +
+                                                          'paletteTools.push(calc) \n' +
+                                                          'paletteTools.push(sticky_notes) \n' +
+                                                          'const paletteMaker = new PaletteMaker(paletteTools) \n' +
+                                                          'paletteMaker.makePaletteBase() \n'
+                                                      '\t\t</pre></code>'
+    document.getElementById('html-tab-para').innerText = '<div id="mydiv_sticky" class="noteItem all-tools>\n <div class="note" id="note">\n <a id="remove1" class="button remove">\n</a>\n <div class="note_cnt">\n <textarea class="title">\n Enter Note Title\n</textarea>\n <textarea class="cnt">\n Enter Note Details\n</textarea>\n</div>\n </div>\n </div>'
+    document.getElementById('css-tab-para').innerHTML = '<code><pre>#mydiv_sticky { \n' +
+                                          'background-color: rgb(23, 132, 196); \n' +
+                                          'border: 10px solid rgba(107, 17, 119, 0.44); \n'+
+                                          'left: 298px; \n' +
+                                          'top: 20px; \n' +
+                                          'position: absolute; \n'+
+                                          'cursor: move; \n'+
+                                           'display: none; \n' +
+                                          '}</pre></code>'
 }
 
 function StickyNote() {
@@ -119,7 +152,9 @@ StickyNote.prototype = {
         note.className = "note"
         note.id = "note"
         const a = document.createElement('a')
+        a.id = 'remove'+noteNum
         a.className ='button remove'
+        a.innerText = 'X'
         a.addEventListener('click', (e) => {
                                   e.preventDefault
                                   a.parentElement.parentElement.style.display = 'none'
@@ -156,12 +191,6 @@ StickyNote.prototype = {
         const mydiv = document.createElement("div")
         mydiv.id = "mydiv_sticky"
         mydiv.className = "noteItem all-tools"
-        /* const mydivheader = document.createElement("div")
-        mydivheader.id = "mydivheader"
-        mydiv.appendChild(mydivheader)
-        const mydivheadertext = document.createTextNode("Drag Text")
-        mydivheader.appendChild(mydivheadertext)
-        const mydivtext = document.createTextNode("My Div Text") */
 
         mydiv.style.backgroundColor = 'rgb(23, 132, 196)'
         if (((noteNum-1)%4)===1) {

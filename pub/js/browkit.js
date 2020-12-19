@@ -39,7 +39,8 @@ PaletteMaker.prototype = {
         openNavButton.onclick = openNav
         const textNode = document.createTextNode('☰ Open Browkit')
         openNavButton.appendChild(textNode)
-        document.querySelector('body').appendChild(openNavButton)
+        //document.querySelector('body').appendChild(openNavButton)
+        document.querySelector('body').insertBefore(openNavButton, document.querySelector('#tab-code'))
 
         {/* <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> */}
         const closeNavLink = document.createElement('a')
@@ -95,6 +96,7 @@ PaletteMaker.prototype = {
                 document.getElementById("palette").style.width = "250px";
                 document.querySelector("body").style.marginLeft = "250px";
                 document.getElementById("openbtn").innerText = '☰ Close Browkit'
+                document.getElementById("tab-code").style.display = 'block'
              
             }
             paletteOpen = !paletteOpen
@@ -105,6 +107,10 @@ PaletteMaker.prototype = {
             document.getElementById("palette").style.width = "0";
             document.querySelector("body").style.marginLeft= "0";
             document.getElementById("openbtn").innerText = '☰ Open Browkit'
+            document.getElementById("tab-code").style.display = 'none'
+            document.getElementById('js-tab-para').innerText = 'Click A Browkit Tool In Sidebar'
+            document.getElementById('html-tab-para').innerText = 'Click A Browkit Tool In Sidebar'
+            document.getElementById('css-tab-para').innerText = 'Click A Browkit Tool In Sidebar'
         }
 
     }

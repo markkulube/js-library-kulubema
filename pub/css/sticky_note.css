@@ -135,7 +135,7 @@
 }
 #add_new {
     position: fixed;
-    top: 20px;
+    top: 50px;
     right: 20px;
     z-index: 100; 
     float: right;
@@ -144,7 +144,7 @@
 
 #hide_notes {
     position: fixed;
-    top: 80px;
+    top: 110px;
     right: 20px;
     z-index: 100; 
     float: right;
@@ -153,7 +153,7 @@
 
 #show_notes {
     position: fixed;
-    top: 80px;
+    top: 110px;
     /* top: 140px; */
     right: 20px;
     z-index: 100; 

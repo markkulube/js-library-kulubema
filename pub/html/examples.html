@@ -62,17 +62,48 @@
  </head>
 
  <body>
-  <ul class="nav nav-pills justify-content-center bg-dark">
-    <li class="nav-item">
-      <a class="nav-link" aria-current="page" href="home.html">Home</a>
+  <ul class="nav nav-examples nav-pills justify-content-center bg-dark">
+    <li style="width: 100px;" class="nav-item">
+      <a class="nav-link" aria-current="page" href="index.html">Home</a>
     </li>
-    <li class="nav-item">
+    <li style="width: 100px;" class="nav-item">
       <a class="nav-link active" href="examples.html">Examples</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">API</a>
+    <li style="width: 100px;" class="nav-item">
+      <a class="nav-link" href="api-browkit.html">API</a>
     </li>
   </ul>
+  
+
+  <div id="tab-code" >
+<!--     <h2>Tabs</h2>
+    <p>Click on the x button in the top right corner to close the current tab:</p> -->
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'JS')" id="defaultOpen">JS</button>
+      <button class="tablinks" onclick="openCity(event, 'HTML')">HTML</button>
+      <button class="tablinks" onclick="openCity(event, 'CSS')">CSS</button>
+    </div>
+  
+    <div id="JS" class="tabcontent">
+      <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+      <h3>JS</h3>
+      <p id="js-tab-para">Select A Browkit Tool From The Right Sidebar</p>
+    </div>
+  
+    <div id="HTML" class="tabcontent">
+      <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+      <h3>HTML</h3>
+      <p id="html-tab-para">Select A Browkit Tool From The Right Sidebar</p> 
+    </div>
+  
+    <div id="CSS" class="tabcontent">
+      <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+      <h3>CSS</h3>
+      <p id="css-tab-para">Select A Browkit Tool From The Right Sidebar</p>
+    </div>
+  </div>
+
+
 
  </body>
 
