@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Cover Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+ -->
+ 
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="../css/api-browkit.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <ul class="nav nav-pills justify-content-center">
+        <li style="width: 100px;"  class="nav-item">
+          <a class="nav-link" aria-current="page" href="index.html">Home</a>
+        </li>
+        <li style="width: 100px;"  class="nav-item">
+          <a class="nav-link" href="examples.html">Examples</a>
+        </li>
+        <li style="width: 100px;"  class="nav-item">
+          <a class="nav-link active" href="api-browkit.html">API</a>
+        </li>
+      </ul>
+      
+      <br>
+
+    <!-- https://codepen.io/vithanos/details/OPramY -->
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="container">
+
+
+          <div class="inner cover justify-content-center">
+
+            <h1 class="cover-heading">API and Documentation</h1>
+
+            <div id="get_started_div">
+                <h1 class="cover-heading">Getting Started</h1>
+                <p>
+                    
+                    Include the library scripts browkit.js, and any js files the library uses:
+                    <div class="code_block">
+                        &lt;script defer type="text/javascript" src='js/calculator.js'&gt;&lt;/script&gt; <br>
+                        &lt;script defer type="text/javascript" src='js/sticky_notes.js'&gt;&lt;/script&gt; <br> 
+                        &lt;script defer type="text/javascript" src='js/browkit.js'&gt;&lt;/script&gt; <br>
+                        &lt;link rel="stylesheet" type="text/css" href="css/browkit.css"&gt;&lt;/link&gt;
+                    </div>
+
+                    <br>
+
+                    Then include any javascript files that depend on and/or use the browkit.js lirbary:
+                    <div class="code_block">
+                        &lt;script defer type="text/javascript" src='js/examples.js'&gt;&lt;/script&gt; <br>
+                    </div>
+                    
+                    <br>
+
+                    Then load any css that are used by the js scripts:
+                    <div class="code_block">
+                        &lt;link rel="stylesheet" type="text/css" href="css/calculator.css"&gt;&lt;/link&gt; <br>
+                        &lt;link rel="stylesheet" type="text/css" href="css/calculator.css"&gt;&lt;/link&gt; <br>
+                        &lt;link rel="stylesheet" type="text/css" href="css/browkit.css"&gt;&lt;/link&gt;
+                    </div>
+
+                    <br>
+
+                    Create an instance of the 'browkit' sidebar in examples.js
+                    <div class="code_block">
+                        <code>
+                            <pre>
+const calc = {
+    tool_name: "calculator",
+    class_name: "tool",
+    inner_text: "Calculator",
+    display_fcn: displayCalculator
+}
+
+const sticky_notes =  {
+                    tool_name: "sticky_notes",
+                    class_name: "tool",
+                    inner_text: "Sticky Notes",
+                    display_fcn: displayStickyButtons
+                }
+
+const paletteTools = []
+paletteTools.push(calc)
+paletteTools.push(sticky_notes)
+const paletteMaker = new PaletteMaker(paletteTools)
+paletteMaker.makePaletteBase()
+                            </pre>
+                        </code>
+                    </div>
+                    
+                </p>
+                
+            </div>
+
+            <br>
+            <br>
+
+            <div id="get_started_div">
+                <h1 class="cover-heading">API Methods</h1>
+
+               <br>
+               <h2 class="cover-heading">Browkit Sider Bar</h2>
+                PaletteMaker(paletteTools) creates an instance of the browkit. Note paletteTools is an Array[String] with
+                <br> names of tools to be included in the browkit sidebar.
+                <div class="code_block">
+                    <code><pre> <br>const paletteMaker = new PaletteMaker(paletteTools)</pre></code>
+                </div>
+
+                <br>
+
+                paletteMaker.makePaletteBase() creates HTML elements of the tools specified in paletteTools namely calculator and sticky_note.
+                <div class="code_block">
+                    <code><pre> <br>paletteMaker.makePaletteBase()</pre></code>
+                </div>
+
+                <br>
+
+                paletteMaker.dragElement(elmnt) applies dragging functionality to the parent div of the calulator and sticky note html elements.
+                <div class="code_block">
+                    <code><pre> <br>paletteMaker.dragElement(elmnt)</pre></code>
+                </div>
+                
+                <br>
+
+                <h2 class="cover-heading">Sticky Notes</h2>
+                StickyNote() is a factory that calls makeStickyNote() to create new html elements of  a sticky note per call.
+                <div class="code_block">
+                    <code><pre> <br>const sticky_note = new StickyNote()<br>sticky_note.makeStickyNote()</pre></code>
+                </div>
+                                
+                <br>
+
+                sticky_note.stickyCustomStyle(styleObj) apply custom styles to sticky notes.
+                <div class="code_block">
+                    <code><pre>const styleObj = float: left;
+                        display: block;
+                        position: relative;
+                        padding: 1em;
+                        width: 300px;
+                        min-height: 300px;
+                        height: 300px;
+                        margin: 0 30px 30px 0;
+                        background: linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25));
+                        background-color: #fffd75;
+                        box-shadow: 5px 5px 10px -2px rgba(33, 33, 33, 0.3);
+                        transform: rotate(2deg);
+                        transform: skew(-1deg, 1deg);
+                        transition: transform 0.15s;
+                        z-index: 1;
+                        margin: 0 auto;
+                        margin-top: 50px;
+                        padding: 50px; <br><br>sticky_note.stickyCustomStyle(styleObj)</pre></code>
+                </div>
+
+                <br>
+
+                <h2 class="cover-heading">Calculator</h2>
+                makeCalculator() renders a calculator HTML element to the browser when called. 
+                <div class="code_block">
+                    <code><pre> <br>makeCalculator()</pre></code>
+                </div>
+  
+                <br>
+
+                calcCustomStyle(styleObj, calc_id) apply custom styles to calculator html element with id calc_id.
+                <div class="code_block">
+                    <code><pre>const styleObj = float: left;
+                        display: block;
+                        position: relative;
+                        padding: 1em;
+                        width: 300px;
+                        min-height: 300px;
+                        height: 300px;
+                        margin: 0 30px 30px 0;
+                        background: linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25));
+                        background-color: #fffd75;
+                        box-shadow: 5px 5px 10px -2px rgba(33, 33, 33, 0.3);
+                        transform: rotate(2deg);
+                        transform: skew(-1deg, 1deg);
+                        transition: transform 0.15s;
+                        z-index: 1;
+                        margin: 0 auto;
+                        margin-top: 50px;
+                        padding: 50px; <br><br>calcCustomStyle(styleObj, 'calc_id')</pre></code>
+                </div>
+
+                <br>
+
+                Hide and Show calculator depending on calculator.style.display value.
+                <div class="code_block">
+                    <code><pre> <br>calculator.hideStick()<br>calculator.showSticky()</pre></code>
+                </div>
+                
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+   --></body>
+</html>
