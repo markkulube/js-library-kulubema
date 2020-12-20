@@ -89,6 +89,10 @@ const calculator = {
     }
 }
 
+function calcCustomStyle (styleObj, calc_id) {
+  document.getElementById(calc_id).style = styleObj
+}
+
 function makeCalculator () {
 
     // Implementation inspired by
