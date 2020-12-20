@@ -97,7 +97,8 @@ body .site-wrapper {
 }
 
 .code_block {
-    background-color: rgb(53, 218, 218);
+    /* background-color: rgb(53, 218, 218); */
+    background-color: #ccc;
     padding: 10px;
     border-radius: 5px;
 }

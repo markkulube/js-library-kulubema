@@ -87,6 +87,10 @@ const calculator = {
             note.style.display = 'none'
         }
     }
+
+    document.getElementById('js-tab-para').innerText = 'Click A Browkit Tool In Sidebar'
+    document.getElementById('html-tab-para').innerText = 'Click A Browkit Tool In Sidebar'
+    document.getElementById('css-tab-para').innerText = 'Click A Browkit Tool In Sidebar'
 }
 
 function calcCustomStyle (styleObj, calc_id) {
