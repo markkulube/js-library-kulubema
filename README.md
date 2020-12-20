@@ -1,11 +1,53 @@
 # browkit
 
-## Link: 
-https://pure-lake-46085.herokuapp.com/examples.html 
+## Landing Page: 
+https://pure-lake-46085.herokuapp.com/index.html 
 
-## Description
-A side bar is rendered on the landing page. There are two menu options i.e. ‘Calculator’ and ‘Sticky Notes’. 
-
-On clicking ‘Calculator’, a calculator, and ‘Hide Calculator’ button appear. The calculator is draggable along the edges and can be used to perform simple arithmetic operations in the browser. 
-
-On clicking ‘Sticky Notes’ a ‘New Note’ button appears at the upper right-hand corner. Each time ‘New Note’ is clicked, a new sticky note is rendered in the browser. Additionally, ‘Show Notes’ and ‘Hide Notes’ buttons become visible after the first sticky note is generated. The notes have editable text boxes. Each sticky note is draggable along the edges. 
+## Getting Started
+Include the library scripts browkit.js, and any js files the library uses:  
+  
+```
+<script defer type="text/javascript" src='js/calculator.js'></script>  
+<script defer type="text/javascript" src='js/sticky_notes.js'></script>  
+<script defer type="text/javascript" src='js/browkit.js'></script>  
+<link rel="stylesheet" type="text/css" href="css/browkit.css"></link>
+```  
+  
+Then include any javascript files that depend on and/or use the browkit.js lirbary:  
+```
+<script defer type="text/javascript" src='js/examples.js'></script>
+```  
+  
+Then load any css that are used by the js scripts:  
+```
+<link rel="stylesheet" type="text/css" href="css/calculator.css"></link>  
+<link rel="stylesheet" type="text/css" href="css/calculator.css"></link>  
+<link rel="stylesheet" type="text/css" href="css/browkit.css"></link>
+```  
+  
+Create an instance of the 'browkit' sidebar in examples.js  
+```
+const calc = {  
+    tool_name: "calculator",  
+    class_name: "tool",  
+    inner_text: "Calculator",  
+    display_fcn: displayCalculator  
+}
+  
+  
+const sticky_notes =  {  
+                    tool_name: "sticky_notes",  
+                    class_name: "tool",  
+                    inner_text: "Sticky Notes",  
+                    display_fcn: displayStickyButtons  
+                }  
+  
+const paletteTools = []  
+paletteTools.push(calc)  
+paletteTools.push(sticky_notes)  
+const paletteMaker = new PaletteMaker(paletteTools)  
+paletteMaker.makePaletteBase()
+```  
+  
+## API - Documentation:
+https://pure-lake-46085.herokuapp.com/api-browkit.html 
