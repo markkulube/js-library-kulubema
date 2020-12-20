@@ -227,5 +227,40 @@ StickyNote.prototype = {
         container.appendChild(mydiv)
 
         this.sticky_notes.push(note)
-	}
+  },
+  
+  stickyStyleCustom: function (styleObj) {
+    this.sticky_notes.forEach(sticky_note => {
+      sticky_note.style = styleObj
+    });
+  },
+  
+  hideSticky: function () {
+    const notes = document.getElementsByClassName('noteItem')
+    let numNotes = 0
+    if(notes !== null) {
+        numNotes = notes.length
+        for (let index = 0; index < notes.length; index++) {
+            const note = notes[index];
+            note.style.display = 'none'
+        }
+    }
+    document.getElementById('show_notes').style.display = 'block'
+    document.getElementById('hide_notes').style.display = 'none'
+  },
+
+  showSticky: function () {
+      const notes = document.getElementsByClassName('noteItem')
+      let numNotes = 0
+      if(notes !== null) {
+          numNotes = notes.length
+          for (let index = 0; index < notes.length; index++) {
+              const note = notes[index];
+              note.style.display = 'block'        
+          }
+      }
+
+      document.getElementById('show_notes').style.display = 'none'
+      document.getElementById('hide_notes').style.display = 'block'
+  }
 }
