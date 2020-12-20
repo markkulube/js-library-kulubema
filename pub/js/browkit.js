@@ -1,3 +1,19 @@
+
+/* JS Library */
+"use strict"; // always need a semicolon before an IIFE
+
+/* 
+Wrap the code that creates your library in an Immediately-Invoked function expression (IIFE).
+This allows you to do any setup necessary in this function scope and then only put on the
+the global scope the variables needed for developers to access.  Prevents pollution of the 
+global scope and conflicts with variables from other libraries, and gives some control over functionality access.
+*/
+
+// We use parameters to create *local* variables in the function, which are faster to lookup than globals, for performance.
+// We can also name them something else - like `global` for the window object.
+(function(global, document, $) { 
+    let paletteOpen = false
+
 // A javascript library that renders various tools in the
 // browser like a calculator, stick notes
 function PaletteMaker(paletteTools) {
@@ -14,7 +30,26 @@ PaletteMaker.prototype = {
 	makePaletteBase: function() {
         const palette = document.createElement('div')
         palette.id = "palette"
-        palette.className = "palette-class"
+        palette.className = "palette-class sidebar"
+
+        {/* <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button> */}  
+        const openNavButton = document.createElement('button')
+        openNavButton.className = "openbtn"
+        openNavButton.id = "openbtn"
+        openNavButton.onclick = openNav
+        const textNode = document.createTextNode('☰ Open Browkit')
+        openNavButton.appendChild(textNode)
+        //document.querySelector('body').appendChild(openNavButton)
+        document.querySelector('body').insertBefore(openNavButton, document.querySelector('#tab-code'))
+
+        {/* <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> */}
+        const closeNavLink = document.createElement('a')
+        closeNavLink.href = "javascript:void(0)"
+        closeNavLink.className = "closebtn"
+        closeNavLink.onclick = closeNav
+        closeNavLink.innerText = "×"
+
+        palette.appendChild(closeNavLink)
 
         const ulist = document.createElement('div')
         ulist.className = "tool-box"
@@ -41,7 +76,7 @@ PaletteMaker.prototype = {
         const container = document.querySelector('.browkit_container');
         container.addEventListener('mousedown', userPressed);
 
-        function userPressed(event) {
+        function userPressed() {
 
             const allTool = document.getElementsByClassName('all-tools')
             for (let index = 0; index < allTool.length; index++) {
@@ -51,5 +86,83 @@ PaletteMaker.prototype = {
             }
         };
 
-	}
+        // https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
+        // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapse_sidebar
+        function openNav() {
+            if (paletteOpen) {
+                closeNav()
+                userPressed()
+            } else {
+                document.getElementById("palette").style.width = "250px";
+                document.querySelector("body").style.marginLeft = "250px";
+                document.getElementById("openbtn").innerText = '☰ Close Browkit'
+                document.getElementById("tab-code").style.display = 'block'
+             
+            }
+            paletteOpen = !paletteOpen
+            
+        }
+          
+        function closeNav() {
+            document.getElementById("palette").style.width = "0";
+            document.querySelector("body").style.marginLeft= "0";
+            document.getElementById("openbtn").innerText = '☰ Open Browkit'
+            document.getElementById("tab-code").style.display = 'none'
+            document.getElementById('js-tab-para').innerText = 'Click A Browkit Tool In Sidebar'
+            document.getElementById('html-tab-para').innerText = 'Click A Browkit Tool In Sidebar'
+            document.getElementById('css-tab-para').innerText = 'Click A Browkit Tool In Sidebar'
+        }
+
+    },
+    
+    dragElement: function (elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (document.getElementById(elmnt.id + "header")) {
+          /* if present, the header is where you move the DIV from:*/
+          document.getElementById(elmnt.id + "header").ondblclick = dragMouseDown;
+        } else {
+          /* otherwise, move the DIV from anywhere inside the DIV:*/
+          elmnt.onmousedown = dragMouseDown;
+        }
+      
+        function dragMouseDown(e) {
+          e = e || window.event;
+          //e.preventDefault();
+          // get the mouse cursor position at startup:
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          document.onmouseup = closeDragElement;
+          // call a function whenever the cursor moves:
+          document.onmousemove = elementDrag;
+        }
+      
+        function elementDrag(e) {
+          e = e || window.event;
+          e.preventDefault();
+          // calculate the new cursor position:
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          // set the element's new position:
+          elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+          elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+      
+        function closeDragElement() {
+          /* stop moving when mouse button is released:*/
+          document.onmouseup = null;
+          document.onmousemove = null;
+        }
+      }
 }
+
+/* Can do all other library setup below without conflicting with the global namespace */
+	// ...
+	// ...
+
+	// After setup:
+	// Add the PaletteMaker to the window object if it doesn't already exist.
+	global.PaletteMaker = global.PaletteMaker || PaletteMaker
+
+})(window, window.document, $); // pass the global window object and jquery to the anonymous function. They will now be locally scoped inside of the function.

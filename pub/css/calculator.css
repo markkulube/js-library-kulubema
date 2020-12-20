@@ -11,11 +11,12 @@
 
   #hide_calc {
     position: fixed;
-    top: 20px;
+    top: 50px;
     right: 20px;
     z-index: 100; 
     float: right;
     width: 200px;
+    background-color: #111;
 }
 
   #board_calc {
@@ -28,6 +29,22 @@
     transform: translate(-50%, -50%); */
     position: absolute;
     width: 100%;
+}
+
+#mydiv_calc {
+  position: absolute;
+  z-index: 9;
+  background-color: #f1f1f1;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+}
+
+#mydiv_calcheader {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
 }
 
   #item_calc {
@@ -60,13 +77,15 @@
   }
   
   .calculator {
-    border: 1px solid #ccc;
+    /* border: 10px solid #ccc; */
+    border: 10px solid #337cac;
     border-radius: 5px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    /* width: 400px; */
+    width: 500px;
   }
   
   .calculator-screen {
@@ -81,9 +100,10 @@
     text-align: right;
     padding-right: 20px;
     padding-left: 10px;
+    cursor: move;
   }
   
-  button {
+  .calculator .calculator-keys button {
     height: 60px;
     background-color: #fff;
     border-radius: 3px;
@@ -96,25 +116,25 @@
     text-shadow: 0 1px rgba(255,255,255,.4);
   }
   
-  button:hover {
+  .calculator .calculator-keys button:hover {
     background-color: #eaeaea;
   }
   
-  .operator {
+  .calculator .calculator-keys.operator {
     color: #337cac;
   }
   
-  .all-clear {
+  .calculator .calculator-keys .all-clear {
     background-color: #f0595f;
     border-color: #b0353a;
     color: #fff;
   }
   
-  .all-clear:hover {
+  .calculator .calculator-keys.all-clear:hover {
     background-color: #f17377;
   }
   
-  .equal-sign {
+  .calculator .calculator-keys .equal-sign {
     background-color: #2e86c0;
     border-color: #337cac;
     color: #fff;
@@ -122,11 +142,11 @@
     grid-area: 2 / 4 / 6 / 5;
   }
   
-  .equal-sign:hover {
+  .calculator .calculator-keys .equal-sign:hover {
     background-color: #4e9ed4;
   }
   
-  .calculator-keys {
+  .calculator .calculator-keys {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;

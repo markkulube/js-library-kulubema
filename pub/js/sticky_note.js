@@ -62,6 +62,39 @@ function displayStickyButtons () {
       document.getElementById('hide_notes').style.display = 'none'
       document.getElementById('show_notes').style.display = 'none'
     }
+
+    document.getElementById("tab-code").style.display = 'block'
+    document.getElementById('js-tab-para').innerHTML = '<code><pre>' +
+                                                              'const calc = { \n' +
+                                                                '\t\ttool_name: "calculator", \n'+
+                                                                '\t\tclass_name: "tool", \n' +
+                                                                '\t\tinner_text: "Calculator", \n' +
+                                                                '\t\tdisplay_fcn: displayCalculator \n' +
+                                                            '} \n' +
+
+                                                          'const sticky_notes =  { \n' +
+                                                                '\t\ttool_name: "sticky_notes", \n' +
+                                                                '\t\tclass_name: "tool", \n' +
+                                                                '\t\tinner_text: "Sticky Notes", \n' +
+                                                                '\t\tdisplay_fcn: displayStickyButtons \n' +
+                                                            '} \n' +
+
+                                                          'const paletteTools = [] \n' +
+                                                          'paletteTools.push(calc) \n' +
+                                                          'paletteTools.push(sticky_notes) \n' +
+                                                          'const paletteMaker = new PaletteMaker(paletteTools) \n' +
+                                                          'paletteMaker.makePaletteBase() \n'
+                                                      '\t\t</pre></code>'
+    document.getElementById('html-tab-para').innerText = '<div id="mydiv_sticky" class="noteItem all-tools>\n <div class="note" id="note">\n <a id="remove1" class="button remove">\n</a>\n <div class="note_cnt">\n <textarea class="title">\n Enter Note Title\n</textarea>\n <textarea class="cnt">\n Enter Note Details\n</textarea>\n</div>\n </div>\n </div>'
+    document.getElementById('css-tab-para').innerHTML = '<code><pre>#mydiv_sticky { \n' +
+                                          'background-color: rgb(23, 132, 196); \n' +
+                                          'border: 10px solid rgba(107, 17, 119, 0.44); \n'+
+                                          'left: 298px; \n' +
+                                          'top: 20px; \n' +
+                                          'position: absolute; \n'+
+                                          'cursor: move; \n'+
+                                           'display: none; \n' +
+                                          '}</pre></code>'
 }
 
 function StickyNote() {
@@ -113,32 +146,33 @@ StickyNote.prototype = {
                     cursor: 'move'
                           }
 
-        const item = document.createElement('div')
-        item.className = 'noteItem all-tools'
-        item.id = 'item' + noteNum
-        item.style.width = '375px'
-        item.style.height =  '375px'
-        item.style.backgroundColor = 'rgb(23, 132, 196)'
-        if (((noteNum-1)%4)===1) {
-          item.style.backgroundColor = '#faaaca'
-        } else if(((noteNum-1)%4)===2) {
-          item.style.backgroundColor = '#69f098'
-        } else if(((noteNum-1)%4)===3) {
-          item.style.backgroundColor = 'hsl(14, 88%, 45%)'
-        } else {
-          item.style.backgroundColor = 'rgb(23, 132, 196)'
-        }
-
-        item.style.border = '10px solid rgba(107, 17, 119, 0.438)'
-        item.style.left = (278 + noteNum*10 + 10) + 'px'
-        item.style.top = (noteNum*10 + 10) + 'px'
-        item.style.position = 'absolute'
-        item.style.cursor = 'move'
+        
 
         const note = document.createElement('div')
         note.className = "note"
+        note.id = "note"
         const a = document.createElement('a')
+        a.id = 'remove'+noteNum
         a.className ='button remove'
+        a.innerText = 'X'
+        a.addEventListener('click', (e) => {
+                                  e.preventDefault
+                                  a.parentElement.parentElement.style.display = 'none'
+                                  const notes = document.getElementsByClassName('noteItem')
+                                  let hidden = []
+                                  for (let index = 0; index < notes.length; index++) {
+                                    const element = notes[index];
+                                    if(element.style.display === 'none') {
+                                          hidden.push(hidden)
+                                    }
+                                  }
+                  
+                                  if (hidden.length === notes.length) {
+                                    document.getElementById('show_notes').style.display = 'block'
+                                    document.getElementById('hide_notes').style.display = 'none'
+                                  }
+                                    
+                                  })
         note.appendChild(a)
         const note_cnt = document.createElement('div')
         note_cnt.className = 'note_cnt'
@@ -154,7 +188,31 @@ StickyNote.prototype = {
         note_cnt.appendChild(cnt)
         note.appendChild(note_cnt)
 
-        item.appendChild(note)
+        const mydiv = document.createElement("div")
+        mydiv.id = "mydiv_sticky"
+        mydiv.className = "noteItem all-tools"
+
+        mydiv.style.backgroundColor = 'rgb(23, 132, 196)'
+        if (((noteNum-1)%4)===1) {
+          mydiv.style.backgroundColor = '#faaaca'
+          note.style.backgroundColor = '#69f098'
+        } else if(((noteNum-1)%4)===2) {
+          mydiv.style.backgroundColor = '#69f098'
+          note.style.backgroundColor = 'hsl(14, 88%, 45%)'
+        } else if(((noteNum-1)%4)===3) {
+          mydiv.style.backgroundColor = 'hsl(14, 88%, 45%)'
+          note.style.backgroundColor = '#b83f1a'
+        } else {
+          mydiv.style.backgroundColor = 'rgb(23, 132, 196)'
+        }
+
+        mydiv.style.border = '10px solid rgba(107, 17, 119, 0.438)'
+        mydiv.style.left = (278 + noteNum*10 + 10) + 'px'
+        mydiv.style.top = (noteNum*10 + 10) + 'px'
+        mydiv.style.position = 'absolute'
+        mydiv.style.cursor = 'move'
+        mydiv.appendChild(note)
+        dragElement(mydiv)
 
         let container
         if (document.getElementById('sticky_container') === null) {
@@ -166,69 +224,43 @@ StickyNote.prototype = {
           container = document.getElementById('sticky_container')
         }
 
-        container.appendChild(item)
+        container.appendChild(mydiv)
 
-        // Implementation inspired by
-        // https://www.kirupa.com/html5/drag.htm
-        let dragItem = item;
-        let active = false;
-        let currentX, currentY, initialX, initialY;
-        let xOffset = 0;
-        let yOffset = 0;
-    
-        container.addEventListener("touchstart", dragStart, false);
-        container.addEventListener("touchend", dragEnd, false);
-        container.addEventListener("touchmove", drag, false);
-    
-        container.addEventListener("mousedown", dragStart, false);
-        container.addEventListener("mouseup", dragEnd, false);
-        container.addEventListener("mousemove", drag, false);
-    
-        function dragStart(e) {
-          if (e.type === "touchstart") {
-            initialX = e.touches[0].clientX - xOffset;
-            initialY = e.touches[0].clientY - yOffset;
-          } else {
-            initialX = e.clientX - xOffset;
-            initialY = e.clientY - yOffset;
-          }
-    
-          if (e.target === dragItem) {
-            active = true;
-          }
+        this.sticky_notes.push(note)
+  },
+  
+  stickyStyleCustom: function (styleObj) {
+    this.sticky_notes.forEach(sticky_note => {
+      sticky_note.style = styleObj
+    });
+  },
+  
+  hideSticky: function () {
+    const notes = document.getElementsByClassName('noteItem')
+    let numNotes = 0
+    if(notes !== null) {
+        numNotes = notes.length
+        for (let index = 0; index < notes.length; index++) {
+            const note = notes[index];
+            note.style.display = 'none'
         }
-    
-        function dragEnd(e) {
-          initialX = currentX;
-          initialY = currentY;
-    
-          active = false;
-        }
-    
-        function drag(e) {
-          if (active) {
-          
-            e.preventDefault();
-          
-            if (e.type === "touchmove") {
-              currentX = e.touches[0].clientX - initialX;
-              currentY = e.touches[0].clientY - initialY;
-            } else {
-              currentX = e.clientX - initialX;
-              currentY = e.clientY - initialY;
-            }
-    
-            xOffset = currentX;
-            yOffset = currentY;
-    
-            setTranslate(currentX, currentY, dragItem);
-          }
-        }
-    
-        function setTranslate(xPos, yPos, el) {
-          el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-        }
+    }
+    document.getElementById('show_notes').style.display = 'block'
+    document.getElementById('hide_notes').style.display = 'none'
+  },
 
-        this.sticky_notes.push(note)      
-	}
+  showSticky: function () {
+      const notes = document.getElementsByClassName('noteItem')
+      let numNotes = 0
+      if(notes !== null) {
+          numNotes = notes.length
+          for (let index = 0; index < notes.length; index++) {
+              const note = notes[index];
+              note.style.display = 'block'        
+          }
+      }
+
+      document.getElementById('show_notes').style.display = 'none'
+      document.getElementById('hide_notes').style.display = 'block'
+  }
 }
