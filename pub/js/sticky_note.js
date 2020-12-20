@@ -122,32 +122,8 @@ StickyNote.prototype = {
             noteNum = 1
         }
 
-/*         width: 350px;
-        height: 350px;
-        background-color: rgb(23, 132, 196);
-        border: 10px solid rgba(107, 17, 119, 0.438);
-        touch-action: none;
-        user-select: none;
-        
- */     
         // Implementation inspired by
         // https://codepen.io/edmondko/pen/udcHG
-        const item_style = {
-                    width: '375px',
-                    height: '375px',
-                    backgroundColor1: 'rgb(23, 132, 196)',
-                    backgroundColor2: '#faaaca',
-                    backgroundColor3: '#69f098',
-                    backgroundColor4: 'hsl(14, 88%, 45%)',
-                    border: '10px solid rgba(107, 17, 119, 0.438)',
-                    left: (278 + noteNum*10 + 10) + 'px',
-                    top: (noteNum*10 + 10) + 'px',
-                    position: 'absolute',
-                    cursor: 'move'
-                          }
-
-        
-
         const note = document.createElement('div')
         note.className = "note"
         note.id = "note"
@@ -157,6 +133,7 @@ StickyNote.prototype = {
         a.innerText = 'X'
         a.addEventListener('click', (e) => {
                                   e.preventDefault
+                                  /* a.parentElement.parentElement.style.display = 'none' */
                                   a.parentElement.parentElement.style.display = 'none'
                                   const notes = document.getElementsByClassName('noteItem')
                                   let hidden = []
@@ -207,8 +184,8 @@ StickyNote.prototype = {
         }
 
         mydiv.style.border = '10px solid rgba(107, 17, 119, 0.438)'
-        mydiv.style.left = (278 + noteNum*10 + 10) + 'px'
-        mydiv.style.top = (noteNum*10 + 10) + 'px'
+        mydiv.style.left = (750 + noteNum*10 + 10) + 'px'
+        mydiv.style.top = (noteNum*10 + 50) + 'px'
         mydiv.style.position = 'absolute'
         mydiv.style.cursor = 'move'
         mydiv.appendChild(note)
